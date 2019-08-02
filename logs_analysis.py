@@ -27,3 +27,8 @@ def connect_db(q):
     result = c.fetchall()
     db.close()
     return result
+
+question = queries[0]['question']
+test_guery =  queries[0]['query']
+print(question)
+print(query)
