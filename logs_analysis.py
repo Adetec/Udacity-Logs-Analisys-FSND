@@ -7,7 +7,11 @@ DBNAME = 'news'
 queries = [
     {
         'question': 'What are the most popular three articles of all time',
-        'query': '',
+        'query': '''select articles.title, count(*) as num
+                    from articles, log where log.status = '200 OK'
+                    and articles.slug = substring(log.path, 10)
+                    group by articles.title
+                    order by num''',
     },
     {
         'question': 'Who are the most popular article authors of all time',
@@ -29,6 +33,8 @@ def connect_db(q):
     return result
 
 question = queries[0]['question']
-test_guery =  queries[0]['query']
+test_query =  queries[0]['query']
 print(question)
-print(query)
+res = connect_db(test_query)
+for r in res:
+    print(r[0] + '-' + str(r[1]))
