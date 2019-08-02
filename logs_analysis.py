@@ -18,3 +18,12 @@ queries = [
         'query': '',
     }
 ]
+
+# Database connection functionality:
+def connect_db(q):
+    db = psycopg2.connect(database=DBNAME)
+    c = db.cursor()
+    c.execute(q)
+    result = c.fetchall()
+    db.close()
+    return result
