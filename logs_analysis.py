@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Import psql adapter
-import psycopg2
+import psycopg2, os
 
 # Declare needed variables
 # Store the database name
@@ -54,17 +54,29 @@ def connect_db(q):
 
 # Log generation functionality
 def generate_log(query, end):
-    question = query['question']
+    question = query['quest'] + '?'
     query = query['query']
     result = connect_db(query)
-
+    
     # Generate and print logs
-    print(question + '?')
+    output = '\r\r' + question + '\r'
+    print(question)
+
     for r in result:
-        print(str(r[0]) + ', with ' + str(r[1]) + end)
+        answer = '\t' + '- ' + str(r[0]) + ', with ' + str(r[1]) + end
+        print(answer)
+        output += answer + '\r' 
+    return output
 
 
 if __name__ == '__main__':
+    content = ''
+    output_file = open('output.txt', 'w')
+
     # Loop through queries list to generate logs
     for query in queries:
-        generate_log(query, query['end'])
+        content += generate_log(query, query['end'])
+
+    output_file.write(content)
+    output_file.close()
+    
