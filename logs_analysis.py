@@ -3,7 +3,6 @@
 # Import psql adapter
 import psycopg2
 
-
 # Declare needed variables
 # Store the database name
 DBNAME = 'news'
