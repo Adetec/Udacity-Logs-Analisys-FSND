@@ -34,5 +34,5 @@ Here's what this command does:
     
     Running this command will connect to your installed database server and execute the SQL commands in the downloaded file, creating tables and populating them with data.
 7. Move to this project directory and make sure you are in by run `ls` command
-8. Finally run `python log_analysis.py`
+8. Finally run `python logs_analysis.py`
 9. Result should be printed and `output.txt` will be updated or created if it doesn't exist
