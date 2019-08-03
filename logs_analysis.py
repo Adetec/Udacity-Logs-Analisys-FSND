@@ -26,7 +26,12 @@ queries = [
     },
     {
         'question': 'On which days did more than 1% of requests lead to errors',
-        'query': '',
+        'query': '''select date, round(((fail * 1.0/ total) * 100), 2) from (
+                    select cast(time as date) date, count(*) as total,
+                    sum(case status when '404 NOT FOUND'
+                    then 1 else 0 END) as fail from log
+                    group by date) as notfail
+                    where ((fail * 1.0/ total) * 1.0) * 100 > 1''',
     }
 ]
 
