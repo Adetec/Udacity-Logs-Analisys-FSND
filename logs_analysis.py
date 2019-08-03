@@ -70,12 +70,16 @@ def generate_log(query, end):
 
 
 if __name__ == '__main__':
+    # Create an empty string to fill it then with the output file content
     content = ''
+    # Create or update the output file
     output_file = open('output.txt', 'w')
 
     # Loop through queries list to generate logs
     for query in queries:
+        # Add generated log to the content
         content += generate_log(query, query['end'])
 
+    # Write finally the content and close the file
     output_file.write(content)
     output_file.close()
