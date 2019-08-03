@@ -16,7 +16,13 @@ queries = [
     },
     {
         'question': 'Who are the most popular article authors of all time',
-        'query': '',
+        'query': '''select authors.name, count(*) as num
+                    from authors, articles, log
+                    where log.status = '200 OK'
+                    and articles.slug = substring(log.path, 10)
+                    and articles.author = authors.id
+                    group by authors.name
+                    order by num desc''',
     },
     {
         'question': 'On which days did more than 1% of requests lead to errors',
