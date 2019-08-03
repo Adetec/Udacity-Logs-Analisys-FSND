@@ -51,7 +51,7 @@ def generate_log(query):
     result = connect_db(query)
     print(question)
     for r in result:
-        print('"' + r[0] + '" - ' + str(r[1]) + ' views')
+        print('"' + str(r[0]) + '" - ' + str(r[1]) + ' views')
 
 
 if __name__ == '__main__':
