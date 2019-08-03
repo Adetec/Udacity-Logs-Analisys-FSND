@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 
+# Import psql adapter
 import psycopg2
 
-DBNAME = 'news'
 
+# Declare needed variables
+# Store the database name
+DBNAME = 'news'
+# Store questions and their queries statement
 queries = [
     {
         'quest': 'What are the most popular three articles of all time',
@@ -49,15 +53,19 @@ def connect_db(q):
     return result
 
 
+# Log generation functionality
 def generate_log(query, end):
     question = query['question']
     query = query['query']
     result = connect_db(query)
+
+    # Generate and print logs
     print(question + '?')
     for r in result:
         print(str(r[0]) + ', with ' + str(r[1]) + end)
 
 
 if __name__ == '__main__':
+    # Loop through queries list to generate logs
     for query in queries:
         generate_log(query, query['end'])
