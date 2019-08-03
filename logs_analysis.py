@@ -11,7 +11,8 @@ queries = [
                     from articles, log where log.status = '200 OK'
                     and articles.slug = substring(log.path, 10)
                     group by articles.title
-                    order by num''',
+                    order by num desc
+                    limit 3''',
     },
     {
         'question': 'Who are the most popular article authors of all time',
