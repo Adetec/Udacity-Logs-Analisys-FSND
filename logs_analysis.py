@@ -33,9 +33,17 @@ def connect_db(q):
     db.close()
     return result
 
-question = queries[0]['question']
-test_query =  queries[0]['query']
-print(question)
-res = connect_db(test_query)
-for r in res:
-    print(r[0] + '-' + str(r[1]))
+
+def generate_log(query):
+    question = query['question']
+    query =  query['query']
+    result = connect_db(query)
+    print(question)
+    for r in result:
+        print('"' + r[0] + '-' + str(r[1]) + '" views')
+
+for query in queries:
+    if not query['query'] == '':
+        generate_log(query)
+    else:
+        print('No answer yet')
