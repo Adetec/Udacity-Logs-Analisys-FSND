@@ -42,8 +42,10 @@ def generate_log(query):
     for r in result:
         print('"' + r[0] + '-' + str(r[1]) + '" views')
 
-for query in queries:
-    if not query['query'] == '':
-        generate_log(query)
-    else:
-        print('No answer yet')
+
+if __name__ == '__main__':
+    for query in queries:
+        if not query['query'] == '':
+            generate_log(query)
+        else:
+            print('No answer yet')
