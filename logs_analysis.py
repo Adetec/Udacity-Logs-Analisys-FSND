@@ -6,7 +6,7 @@ DBNAME = 'news'
 
 queries = [
     {
-        'question': 'What are the most popular three articles of all time',
+        'quest': 'What are the most popular three articles of all time',
         'query': '''select articles.title, count(*) as num
                     from articles, log where log.status = '200 OK'
                     and articles.slug = substring(log.path, 10)
@@ -16,7 +16,7 @@ queries = [
         'end': ' views'
     },
     {
-        'question': 'Who are the most popular article authors of all time',
+        'quest': 'Who are the most popular article authors of all time',
         'query': '''select authors.name, count(*) as num
                     from authors, articles, log
                     where log.status = '200 OK'
@@ -27,7 +27,7 @@ queries = [
         'end': ' views'
     },
     {
-        'question': 'On which days did more than 1% of requests lead to errors',
+        'quest': 'On which days did more than 1% of requests lead to errors',
         'query': '''select date, round(((fail * 1.0/ total) * 100), 2) from (
                     select cast(time as date) date, count(*) as total,
                     sum(case status when '404 NOT FOUND'
@@ -37,6 +37,7 @@ queries = [
         'end': '% errors'
     }
 ]
+
 
 # Database connection functionality:
 def connect_db(q):
@@ -50,7 +51,7 @@ def connect_db(q):
 
 def generate_log(query, end):
     question = query['question']
-    query =  query['query']
+    query = query['query']
     result = connect_db(query)
     print(question + '?')
     for r in result:
