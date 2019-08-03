@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
-# Import psql adapter
-import psycopg2, os
+# Import psql adapter and os module
+import psycopg2
+import os
 
 # Declare needed variables
 # Store the database name
@@ -57,7 +58,6 @@ def generate_log(query, end):
     question = query['quest'] + '?'
     query = query['query']
     result = connect_db(query)
-    
     # Generate and print logs
     output = '\r\r' + question + '\r'
     print(question)
@@ -65,7 +65,7 @@ def generate_log(query, end):
     for r in result:
         answer = '\t' + '- ' + str(r[0]) + ', with ' + str(r[1]) + end
         print(answer)
-        output += answer + '\r' 
+        output += answer + '\r'
     return output
 
 
@@ -79,4 +79,3 @@ if __name__ == '__main__':
 
     output_file.write(content)
     output_file.close()
-    
