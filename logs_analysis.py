@@ -13,6 +13,7 @@ queries = [
                     group by articles.title
                     order by num desc
                     limit 3''',
+        'end': ' views'
     },
     {
         'question': 'Who are the most popular article authors of all time',
@@ -23,6 +24,7 @@ queries = [
                     and articles.author = authors.id
                     group by authors.name
                     order by num desc''',
+        'end': ' views'
     },
     {
         'question': 'On which days did more than 1% of requests lead to errors',
@@ -32,6 +34,7 @@ queries = [
                     then 1 else 0 END) as fail from log
                     group by date) as notfail
                     where ((fail * 1.0/ total) * 1.0) * 100 > 1''',
+        'end': '% errors'
     }
 ]
 
@@ -45,18 +48,15 @@ def connect_db(q):
     return result
 
 
-def generate_log(query):
+def generate_log(query, end):
     question = query['question']
     query =  query['query']
     result = connect_db(query)
-    print(question)
+    print(question + '?')
     for r in result:
-        print('"' + str(r[0]) + '" - ' + str(r[1]) + ' views')
+        print(str(r[0]) + ', with ' + str(r[1]) + end)
 
 
 if __name__ == '__main__':
     for query in queries:
-        if not query['query'] == '':
-            generate_log(query)
-        else:
-            print('No answer yet')
+        generate_log(query, query['end'])
